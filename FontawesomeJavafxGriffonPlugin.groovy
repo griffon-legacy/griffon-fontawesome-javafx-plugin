@@ -19,7 +19,7 @@
  */
 class FontawesomeJavafxGriffonPlugin {
     // the plugin version
-    String version = '1.0.0'
+    String version = '1.0.1'
     // the version or versions of Griffon the plugin is designed for
     String griffonVersion = '1.3.0 > *'
     // the other plugins this plugin depends on
@@ -63,11 +63,16 @@ plugin
 |                 | size       | int    | 16          | no         |
 
 Valid values for `icon` can be obtained by running **fontawesome-icon-selector**
-and inspecting the tooltip of the chosen icon. `FontAwesome` is automatically
-loaded and registered with the Font subsystem, thus you can use int CSS files
-like so
+and inspecting the tooltip of the chosen icon. You may also use any value from the
+`griffon.plugins.fontawesome.FontAwesome` enum. You may specify units for the icon's
+size, for example `16px` or `2em`; pixel units will be used if units are not specified.
+Font `FontAwesome` is automatically loaded and registered with the Font subsystem,
+thus you can use int CSS files like so
 
     -fx-font-family: FontAwesome;
+
+All icons created with `fontAwesomeIcon` have `fontawesome-icon` added to their
+`styleClass` property.
 
 Scripts
 -------

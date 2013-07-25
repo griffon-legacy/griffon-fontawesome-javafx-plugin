@@ -35,15 +35,17 @@ class FontAwesomeIconFactory extends LabeledFactory {
     }
 
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) {
-        String iconName = attributes.remove('icon') ?: value
-        String iconSize = attributes.remove('size') ?: '16'
+        def iconName = attributes.remove('icon') ?: value
+        if (iconName instanceof CharSequence) iconName = iconName.toString()
+        String iconSize = attributes.remove('size') ?: '16px'
+        String units = iconSize.charAt(iconSize.size() - 1).isDigit() ? 'px' : ''
 
         if (!iconName) throw new IllegalArgumentException("In $name you must define a node value or icon:")
         Label label = super.newInstance(builder, name, null, attributes)
         label.styleClass << 'fontawesome-icon'
-        label.text = FontAwesome.findByDescription(iconName).code
+        label.text = iconName instanceof FontAwesome? iconName.code : FontAwesome.findByDescription(iconName).code
         label.style = attributes.remove('style') ?: ''
-        label.style += '-fx-font-family: FontAwesome; -fx-font-size: ' + iconSize + 'px;'
+        label.style += '-fx-font-family: FontAwesome; -fx-font-size: ' + iconSize + units + ';'
         label
     }
 }
